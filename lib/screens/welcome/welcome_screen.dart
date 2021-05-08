@@ -6,7 +6,6 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:calculator_app/constants.dart';
 import 'package:calculator_app/navbar.dart';
-//import 'package:calculator_app/screens/quiz/quiz_screen.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:image_picker/image_picker.dart';
 

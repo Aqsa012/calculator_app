@@ -1,11 +1,8 @@
-import 'package:calculator_app/simple_cal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:io';
 import 'package:calculator_app/constants.dart';
-import 'package:calculator_app/navbar.dart';
-import 'package:websafe_svg/websafe_svg.dart';
-import 'package:image_picker/image_picker.dart';
+
+import 'body.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -40,13 +37,13 @@ class _MyWelcomeScreen extends State<WelcomeScreen> {
                     height: 60.0,
                   ),
                   InkWell(
-                    onTap: () => Get.to(simple_cal()),
+                    onTap: () => Get.to(HomePage()),
                     child: Container(
                       width: double.infinity,
                       alignment: Alignment.center,
                       padding: EdgeInsets.all(kDefaultPadding * 1), // 15
                       decoration: BoxDecoration(
-                        //gradient: kPrimaryGradient,
+                        color: kPrimaryGradient,
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                       child: Text(
@@ -68,7 +65,7 @@ class _MyWelcomeScreen extends State<WelcomeScreen> {
                       alignment: Alignment.center,
                       padding: EdgeInsets.all(kDefaultPadding * 1), // 15
                       decoration: BoxDecoration(
-                        //gradient: kPrimaryGradient,
+                        color: kPrimaryGradient,
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                       child: Text(
