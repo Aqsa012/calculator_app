@@ -1,3 +1,4 @@
+import 'package:calculator_app/simple_cal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
@@ -39,7 +40,7 @@ class _MyWelcomeScreen extends State<WelcomeScreen> {
                     height: 60.0,
                   ),
                   InkWell(
-                    //onTap: () => Get.to(QuizScreen()),
+                    onTap: () => Get.to(simple_cal()),
                     child: Container(
                       width: double.infinity,
                       alignment: Alignment.center,

@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyanAccent,
+      //backgroundColor: Colors.white10,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 10.0,
               width: 450.0,
               child: Divider(
-                color: Colors.white,
+                color: Colors.blueAccent,
                 thickness: 1.0,
               ),
             ),
@@ -62,8 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 letterSpacing: 5.0,
               ),
             ),
-            Image(image: AssetImage('assets/load.gif')),
-            Image.network('https://example.com/animated-image.gif'),
+            Image(image: AssetImage('assets/Color.gif')),
+            //Image.network('https://example.com/animated-image.gif'),
           ],
         ),
       ),
