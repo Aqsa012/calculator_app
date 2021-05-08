@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
-        title: new Text("Calculator"),
+        title: new Text(" Simple Calculator"),
       ),
       body: Column(
         children: <Widget>[
@@ -211,7 +211,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           color: Color.fromRGBO(200, 200, 200, 1),
                           fontWeight: FontWeight.w300),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      showResultDialog(result);
+                    },
                   ),
                   Container(
                     // Clear Btn
@@ -251,5 +253,40 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+
+  void showResultDialog(String playerName) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          AnimationController(duration: Duration(seconds: 60), vsync: this);
+          return AlertDialog(
+            title: new Text("Result"),
+            content: Text(
+              playerName,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.green,
+                fontStyle: FontStyle.italic,
+                fontSize: 23.0,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  'OK',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }
