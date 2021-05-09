@@ -8,9 +8,21 @@ class HomePage2 extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+int ue = 0, ur = 0, rr = 0, re = 0, inc = 0, inc2 = 0;
+List<String> undoresult = [];
+List<String> redoresult = [];
+List<String> undoequation = [];
+List<String> redoequation = [];
+
 class _HomePageState extends State<HomePage2> with TickerProviderStateMixin {
   String equation = "0", result = "0"; // Expression and FinalResult
   List<String> cal = [];
+  String ma = "";
+  void historymain() {
+    ma = equation + " = " + result;
+    cal.add(ma);
+  }
+
   Map<String, String> operatorsMap = {"÷": "/", "×": "*", "−": "-", "+": "+"};
   List buttonNames = [
     "7",
@@ -52,6 +64,10 @@ class _HomePageState extends State<HomePage2> with TickerProviderStateMixin {
       result = "Error";
     }
     cal.add(result);
+    historymain();
+    undoresult.add(result);
+
+    undoequation.add(equation);
   }
 
   Widget _buttonPressed(String text, {bool isClear = false}) {
@@ -183,7 +199,21 @@ class _HomePageState extends State<HomePage2> with TickerProviderStateMixin {
               //showResultHistory(equation, "=", result);
               _navigateAndDisplayHistory(context);
             },
-          )
+          ),
+          IconButton(
+            icon: Icon(Icons.undo),
+            onPressed: () {
+              //UndoRedo("undo");
+              showResultHistory(equation, "=", result);
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.redo),
+            onPressed: () {
+              showResultHistory(equation, "=", result);
+              // UndoRedo("redo");
+            },
+          ),
         ],
       ),
       body: Column(
@@ -275,7 +305,7 @@ class _HomePageState extends State<HomePage2> with TickerProviderStateMixin {
 
   _navigateAndDisplayHistory(BuildContext context) async {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => History(operations: [])));
+        MaterialPageRoute(builder: (context) => History(operations: cal)));
   }
 
   void showResultHistory(String eq, String equal, String history) async {
@@ -284,7 +314,16 @@ class _HomePageState extends State<HomePage2> with TickerProviderStateMixin {
         builder: (BuildContext context) {
           AnimationController(duration: Duration(seconds: 60), vsync: this);
           return AlertDialog(
-            title: new Text("History"),
+            title: new Text(
+              "History",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Dancing Script',
+                color: Colors.blue,
+                fontSize: 28.0,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
             content: Row(
               children: [
                 Text(
@@ -343,7 +382,16 @@ class _HomePageState extends State<HomePage2> with TickerProviderStateMixin {
         builder: (BuildContext context) {
           AnimationController(duration: Duration(seconds: 60), vsync: this);
           return AlertDialog(
-            title: new Text("Result"),
+            title: new Text(
+              "Result",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Dancing Script',
+                color: Colors.blue,
+                fontSize: 28.0,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
             content: Text(
               playerName,
               textAlign: TextAlign.center,
@@ -370,5 +418,37 @@ class _HomePageState extends State<HomePage2> with TickerProviderStateMixin {
             ],
           );
         });
+  }
+
+  void UndoRedo(String n) {
+    if (n == "undo") {
+      if (ur < undoresult.length) {
+        result = undoresult[ur];
+        redoresult.add(result);
+        ur = ur + 1;
+        rr = rr + 1;
+      }
+
+      if (ur < undoresult.length) {
+        equation = undoequation[ue];
+        redoequation.add(equation);
+        ue = ue + 1;
+        re = re + 1;
+      }
+
+      if (n == "redo") {
+        if (inc < rr) {
+          result = redoresult[inc];
+          inc = inc + 1;
+          ur = ur - 1;
+        }
+
+        if (inc2 < re) {
+          equation = redoequation[inc2];
+          inc2 = inc2 + 1;
+          ue = ue - 1;
+        }
+      }
+    }
   }
 }

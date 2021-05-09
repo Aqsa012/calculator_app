@@ -1,3 +1,4 @@
+import 'package:calculator_app/body2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:calculator_app/constants.dart';
@@ -23,7 +24,13 @@ class _MyWelcomeScreen extends State<WelcomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Spacer(flex: 2), //2/6
+                  Spacer(flex: 2), //2
+
+                  Image(
+                    image: AssetImage('assets/school.png'),
+                    height: 200,
+                    width: 200,
+                  ), // /6
                   Text(
                     "Calculator",
                     textAlign: TextAlign.center,
@@ -59,7 +66,7 @@ class _MyWelcomeScreen extends State<WelcomeScreen> {
                     height: 20.0,
                   ),
                   InkWell(
-                    // onTap: () => Get.to(QuizScreen1()),
+                    onTap: () => Get.to(HomePage2()),
                     child: Container(
                       width: double.infinity,
                       alignment: Alignment.center,

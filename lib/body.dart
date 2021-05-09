@@ -8,9 +8,17 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+List<String> cal = [];
+
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String equation = "0", result = "0"; // Expression and FinalResult
-  List<String> cal = [];
+
+  String ma = "";
+  void historymain() {
+    ma = equation + " = " + result;
+    cal.add(ma);
+  }
+
   Map<String, String> operatorsMap = {"÷": "/", "×": "*", "−": "-", "+": "+"};
   List buttonNames = [
     "7",
@@ -25,7 +33,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     "2",
     "3",
     "−",
-    "",
+    "<",
     "0",
     "%",
     "+"
@@ -47,18 +55,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     } catch (e) {
       result = "Error";
     }
-    cal.add(result);
+
+    //String input = equation + "=" + result;
+    // cal.add(input);
+    historymain();
   }
 
   Widget _buttonPressed(String text, {bool isClear = false}) {
     setState(() {
       if (isClear) {
         // Reset calculator
-        equation = result = "0";
+        equation = result = ma = "0";
       } else if (text == "⌫") {
         // Backspace
         equation = equation.substring(0, equation.length - 1);
-        if (equation == "") equation = result = "0"; // If all empty
+        if (equation == "") equation = result = ma = "0"; // If all empty
       } else {
         // Default
         if (equation == "0" && text != ".") equation = "";
@@ -177,9 +188,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             icon: Icon(Icons.history),
             onPressed: () {
               //showResultHistory(equation, "=", result);
-              _navigateAndDisplayHistory(context);
+              _navigateAndDisplayHistory();
             },
-          )
+          ),
         ],
       ),
       body: Column(
@@ -229,6 +240,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       showResultDialog(result);
                     },
                   ),
+                  FlatButton(
+                    // equal to btn
+                    child: Text(
+                      "<",
+                      style: TextStyle(
+                          fontSize: 36,
+                          color: Color.fromRGBO(200, 200, 200, 1),
+                          fontWeight: FontWeight.w300),
+                    ),
+                    onPressed: () {
+                      showResultHistory(equation, "=", result);
+                    },
+                  ),
                   Container(
                     // Clear Btn
                     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -269,9 +293,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  _navigateAndDisplayHistory(BuildContext context) async {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => History(operations: [])));
+  _navigateAndDisplayHistory() {
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => History(operations: cal),
+    ));
   }
 
   void showResultHistory(String eq, String equal, String history) async {
@@ -280,7 +305,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         builder: (BuildContext context) {
           AnimationController(duration: Duration(seconds: 60), vsync: this);
           return AlertDialog(
-            title: new Text("History"),
+            title: new Text("Previous Result"),
             content: Row(
               children: [
                 Text(
@@ -339,7 +364,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         builder: (BuildContext context) {
           AnimationController(duration: Duration(seconds: 60), vsync: this);
           return AlertDialog(
-            title: new Text("Result"),
+            title: new Text(
+              "Result",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Dancing Script',
+                fontSize: 28.0,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
             content: Text(
               playerName,
               textAlign: TextAlign.center,

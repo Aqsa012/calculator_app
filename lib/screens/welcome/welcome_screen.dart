@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 7),
+        Duration(seconds: 20),
         () => Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => SecondScreen())));
   }
@@ -37,11 +37,14 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'Aqsa Tariq',
               style: TextStyle(
-                fontFamily: 'Lobster',
-                color: Colors.indigo,
-                fontWeight: FontWeight.bold,
-                fontSize: 40.0,
-              ),
+                  fontFamily: 'Dancing Script',
+                  //color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40.0,
+                  foreground: Paint()
+                    ..shader = LinearGradient(
+                      colors: <Color>[Colors.red, Colors.black, Colors.blue],
+                    ).createShader(Rect.fromLTWH(120, 0, 200, 0))),
             ),
             SizedBox(
               height: 10.0,
