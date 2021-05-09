@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
+import 'history.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -8,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String equation = "0", result = "0"; // Expression and FinalResult
+  List<String> cal = [];
   Map<String, String> operatorsMap = {"÷": "/", "×": "*", "−": "-", "+": "+"};
   List buttonNames = [
     "7",
@@ -22,9 +25,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     "2",
     "3",
     "−",
+    "",
     "0",
-    ".",
-    "⌫",
+    "%",
     "+"
   ];
 
@@ -44,6 +47,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     } catch (e) {
       result = "Error";
     }
+    cal.add(result);
   }
 
   Widget _buttonPressed(String text, {bool isClear = false}) {
@@ -168,6 +172,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
         title: new Text(" Simple Calculator"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.history),
+            onPressed: () {
+              //showResultHistory(equation, "=", result);
+              _navigateAndDisplayHistory(context);
+            },
+          )
+        ],
       ),
       body: Column(
         children: <Widget>[
@@ -204,6 +217,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                   Spacer(),
                   FlatButton(
+                    // equal to btn
                     child: Text(
                       "=",
                       style: TextStyle(
@@ -253,6 +267,70 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+
+  _navigateAndDisplayHistory(BuildContext context) async {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => History(operations: [])));
+  }
+
+  void showResultHistory(String eq, String equal, String history) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          AnimationController(duration: Duration(seconds: 60), vsync: this);
+          return AlertDialog(
+            title: new Text("History"),
+            content: Row(
+              children: [
+                Text(
+                  eq,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 23.0,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Text(
+                  equal,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 23.0,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                Text(
+                  result,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 23.0,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  'OK',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 
   void showResultDialog(String playerName) async {
