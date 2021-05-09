@@ -1,16 +1,17 @@
 # calculator_app
 
-A new Flutter application.
+A new Flutter application with two levels of calculator app.
+	Basic level
+	Intermediate level
 
-## Getting Started
+Basic level contain five operations(+,-,/,*,%).
+Previous data save in History.
+User can view their previous result.
 
-This project is a starting point for a Flutter application.
+Intermediate level all above functions with Undo and Redo function and Intermediate level operations.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Designed and Developed by AQSA TARIQ
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
