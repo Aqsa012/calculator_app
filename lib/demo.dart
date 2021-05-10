@@ -44,7 +44,7 @@ class _MyWelcomeScreen extends State<WelcomeScreen> {
                     height: 60.0,
                   ),
                   InkWell(
-                    onTap: () => Get.to(HomePage()),
+                    onTap: () => Get.to(AddTwoNumbers()),
                     child: Container(
                       width: double.infinity,
                       alignment: Alignment.center,
